@@ -1,6 +1,13 @@
+const severityMap: Record<string, string> = {
+  "low": "低危",
+  "moderate": "中危",
+  "high": "高危",
+  "critical": "极其要中的",
+}
+
 export default function render(data: any) {
   console.log(data)
-  const { metadata, bugMap } = data;
+  const { metadata, bugLibs, deepResult } = data;
   const { total, info, low, moderate, high, critical } = metadata;
 
   return `
@@ -12,11 +19,11 @@ export default function render(data: any) {
 
 其中
 
-- info: ${info}
-- low: ${low}
-- moderate: ${moderate}
-- high: ${high}
-- critical: ${critical}
+- ${severityMap.low}: ${low}
+- ${severityMap.moderate}: ${moderate}
+- ${severityMap.high}: ${high}
+- ${severityMap.critical}: ${critical}
+
 
 >说明：
 >
@@ -24,11 +31,13 @@ export default function render(data: any) {
 > - **${high}**被认为是高危漏洞，建议尽快修复。
 > - **${moderate}**被认为是中危漏洞，选择在时间允许时修复。
 > - **${low}**被认为是轻微漏洞，建议根据自行判断进行修复。
-> - **${info}**被认为是信息漏洞，建议忽略。
  
-## 涉及到的漏洞
 
-${bugRender(bugMap)}
+${bugRender(bugLibs)}
+
+${x(deepResult)}
+
+
 
 `
 }
@@ -65,12 +74,40 @@ const bugDesc = (list: any[]) => {
 - ${bug.title}
   - npm漏洞编号：${bug.source}
   - 漏洞详细说明：${bug.url}
-  - 漏洞等级：${bug.severity}
+  - 漏洞等级：${severityMap[bug.severity]}
   - 受影响版本：${bug.range}
 `
     }
 
   }
   return result
+}
+
+const x = (deepResult: any) => {
+  let result = `
+## 影响到的库
+`
+
+  for (const key in deepResult) {
+    const paths = deepResult[key]
+    result += `
+### ${key}
+
+${getdepsPath(paths)}
+
+`
+  }
+
+  return result
+}
+
+const getdepsPath = (paths: any[]) => {
+  let res = ""
+  paths.forEach(path => {
+    res += `
+- \`${path.join("` / `")}\`
+    `
+  })
+  return res
 }
 

@@ -1,6 +1,7 @@
 import { promisify } from 'util';
 import { exec } from 'child_process';
 import fs from "fs";
+import path from 'path';
 
 const execPromise = promisify(exec);
 
@@ -36,8 +37,20 @@ export async function readJSON(filePath: string) {
 
 export async function writeJSON(filePath: string, data: any) {
   try {
+    // 确保文件路径存在
+    await fs.promises.mkdir(path.dirname(filePath), { recursive: true });
     await fs.promises.writeFile(filePath, JSON.stringify(data, null, 2));
   } catch (error: any) {
     console.error('写入 JSON 失败:', error.message);
+  }
+}
+
+export async function writeMD(filePath: string, content: string) {
+  // 确保文件路径存在
+  await fs.promises.mkdir(path.dirname(filePath), { recursive: true });
+  try {
+    await fs.promises.writeFile(filePath, content);
+  } catch (error: any) {
+    console.error('写入 MD 文件失败:', error.message);
   }
 }

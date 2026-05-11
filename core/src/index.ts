@@ -1,8 +1,13 @@
+import path from "path";
 import { getPackageJsonFile, getWorkspaceDir } from "./common/file";
 import format from "./common/format";
 import generateLockFile from "./common/generateLock";
 import npmAudit from "./common/npmAudit";
 import render from "./common/render";
+import fs from "fs";
+import { writeMD } from "./common/utils";
+
+
 
 type AuditOptions = {
   root: string;
@@ -13,7 +18,7 @@ type AuditOptions = {
 export default async function audit({
   root,
   output,
-  filename = 'audit.json',
+  filename = 'audit.md',
   fileType = 'json'
 }: AuditOptions) {
 
@@ -25,10 +30,8 @@ export default async function audit({
   await generateLockFile(workDir);
   const resultPath = await npmAudit(workDir);
   const formattedResult = await format(resultPath);
-  render(formattedResult)
-
-
-  // 解析项目将项目的package.json文件放到工作目录中
+  const contentMD = render(formattedResult);
+  await writeMD(path.join(output, filename), contentMD);
 
 
 }

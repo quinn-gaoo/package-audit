@@ -2,18 +2,14 @@ import { readJSON, writeJSON } from "./utils";
 import path from "path";
 
 export default async function format(auditPath: string) {
-    const auditJsonData = await readJSON(auditPath);
-    const map: Record<string, any> = {}
-    const bugMap: Record<string, any> = {}
-    const directMap: Record<string, boolean> = {}
-    for (const [key, value] of Object.entries<any>(auditJsonData.vulnerabilities)) {
-        map[key] = value;
-        if (value.isDirect) {
-            // directMap[value.name] = { ...value };
-        }
+    const data = await readJSON(auditPath);
 
-        if (value.via.find((via: any) => typeof via === 'object')) {
-            bugMap[value.name] = value;
+    const map: Record<string, any> = {}
+    const bugLibs: Record<string, any[]> = {}
+    for (const [key, value] of Object.entries<any>(data.vulnerabilities)) {
+        map[key] = value;
+        if (value.via.find((i: any) => typeof i === 'object')) {
+            bugLibs[key] = { ...value }
         }
     }
 
@@ -28,6 +24,7 @@ export default async function format(auditPath: string) {
         item.deps = deps;
     }
 
+
     const fixCircular = (item: any, cache: any = {}) => {
         cache[item.name] = true;
         if (!item.deps?.length) {
@@ -37,37 +34,38 @@ export default async function format(auditPath: string) {
             if (cache[dep.name]) {
                 return ["not found"]
             }
-            return [fixCircular(dep, cache)]
+            const x = fixCircular(dep, cache);
+            return [...x]
         })]
-
     }
 
-    let result: Record<string, any[]> = {}
+    let deepResult: Record<string, any[]> = {}
     for (const key in map) {
         const item = map[key];
         if (item.isDirect) {
             const depsPath = fixCircular(item);
             const flatPaths = extractPaths(depsPath);
-            result[key] = flatPaths
+            deepResult[key] = flatPaths
         }
     }
 
-
-
-    const resultData = {
-        result,
-        bugMap,
-        directMap,
-        metadata: auditJsonData.metadata.vulnerabilities
+    const result = {
+        deepResult,
+        bugLibs,
+        metadata: data.metadata.vulnerabilities
     }
-    await writeJSON(path.join(path.dirname(auditPath), 'format.json'), resultData);
-    return resultData
+    await writeJSON(path.join(path.dirname(auditPath), 'format.json'), result);
+    return result
+
+
 
 }
 
 function extractPaths(data: any[]) {
     const list = deepFlatten(data)
+    console.log(typeof list)
     list.forEach(i => {
+        console.log(i)
         i.pop()
     })
     return list
