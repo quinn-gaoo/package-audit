@@ -1,0 +1,51 @@
+{
+  "name": "gqq-ui-1-1",
+  "version": "0.1.0",
+  "description": "一个由vue编写的weui",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "lint": "vue-cli-service lint",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GqiangQ/weui.git"
+  },
+  "keywords": [
+    "vue",
+    "weui",
+    "ui"
+  ],
+  "author": "GQiangQ",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GqiangQ/weui/issues"
+  },
+  "homepage": "https://github.com/GqiangQ/weui#readme",
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "node-sass": "npm:sass",
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.4.0",
+    "@vue/cli-plugin-unit-mocha": "~4.4.0",
+    "@vue/cli-service": "~4.4.0",
+    "@vue/test-utils": "^1.0.3",
+    "chai": "^4.1.2",
+    "prettier": "^1.19.1",
+    "sass": "^1.26.5",
+    "sass-loader": "^7.3.1",
+    "vue-template-compiler": "^2.6.11",
+    "vuepress": "^1.5.3"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
