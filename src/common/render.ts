@@ -6,7 +6,6 @@ const severityMap: Record<string, string> = {
 }
 
 export default function render(data: any) {
-  console.log(data)
   const { metadata, bugLibs, deepResult } = data;
   const { total, info, low, moderate, high, critical } = metadata;
 

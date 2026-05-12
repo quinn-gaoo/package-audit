@@ -5,6 +5,8 @@ import generateLockFile from "./common/generateLock";
 import npmAudit from "./common/npmAudit";
 import render from "./common/render";
 import { writeMD } from "./common/utils";
+import fs from "fs";
+
 
 
 type AuditOptions = {
@@ -16,7 +18,7 @@ type AuditOptions = {
 export default async function audit({
   root,
   output,
-  filename = 'audit.md',
+  filename = 'audit',
   fileType = 'json'
 }: AuditOptions) {
 
@@ -29,7 +31,12 @@ export default async function audit({
   const resultPath = await npmAudit(workDir);
   const formattedResult = await format(resultPath);
   const contentMD = render(formattedResult);
-  await writeMD(path.join(output, filename), contentMD);
+
+  console.log("审计结果存放在:", path.join(output, `${filename}.md`))
+  await writeMD(path.join(output, `${filename}.md`), contentMD);
+
+  // 删除临时工作目录
+  await fs.promises.rm(workDir, { recursive: true });
 
 
 }

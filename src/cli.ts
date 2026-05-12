@@ -12,7 +12,7 @@ program
   .version('1.0.0')
   .option('-r, --root <path>', '项目根路径', process.cwd())
   .option('-o, --output <path>', '输出文件路径', process.cwd())
-  .option('-f, --filename <name>', '输出文件名', 'audit-result.json')
+  .option('-f, --filename <name>', '输出文件名', 'audit-result')
   .action(async (options) => {
     try {
       // 解析路径
