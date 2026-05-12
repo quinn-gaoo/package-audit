@@ -4,9 +4,7 @@ import format from "./common/format";
 import generateLockFile from "./common/generateLock";
 import npmAudit from "./common/npmAudit";
 import render from "./common/render";
-import fs from "fs";
 import { writeMD } from "./common/utils";
-
 
 
 type AuditOptions = {
