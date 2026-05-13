@@ -1,3 +1,48 @@
-**/node_modules
-**/build
-**/output
+# Dependencies
+node_modules/
+
+# Build output
+build/
+dist/
+docs/.vitepress
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+.tmp/
+.cache/
+*.tmp
+
+# Output directories
+output/
+audit/
+results/
+
+# Package manager lockfiles (optional, uncomment if needed)
+# package-lock.json
+# yarn.lock

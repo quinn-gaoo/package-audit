@@ -13,7 +13,10 @@
     "test": "tsx src/test.ts",
     "mcp:dev": "tsx src/mcp/index.tsx",
     "inspector": "npx @modelcontextprotocol/inspector",
-    "cli:install": "pnpm link --global"
+    "cli:install": "pnpm link --global",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "bin": {
     "github-audit": "./build/cli.js"
@@ -40,6 +43,7 @@
     "@types/node": "^25.6.2",
     "@types/tmp": "^0.2.6",
     "tsx": "^4.21.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitepress": "^1.6.4"
   }
 }
