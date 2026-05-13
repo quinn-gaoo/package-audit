@@ -1,10 +1,10 @@
 import path from "path";
-import { getPackageJsonFile, getWorkspaceDir } from "./common/file";
-import format from "./common/format";
-import generateLockFile from "./common/generateLock";
-import npmAudit from "./common/npmAudit";
-import render from "./common/render";
-import { writeMD } from "./common/utils";
+import { getPackageJsonFile, getWorkspaceDir } from "./common/file.js";
+import format from "./common/format.js";
+import generateLockFile from "./common/generateLock.js";
+import npmAudit from "./common/npmAudit.js";
+import render from "./common/render.js";
+import { writeMD } from "./common/utils.js";
 import fs from "fs";
 
 
@@ -24,7 +24,10 @@ export default async function audit({
 
   // 创建工作目录
   const workDir = getWorkspaceDir();
-  const packageJson = getPackageJsonFile(root, workDir);
+  const packageJsonPath = await getPackageJsonFile(root, workDir);
+  if (!packageJsonPath) {
+    throw new Error(`package.json file not found in ${packageJsonPath}`);
+  }
 
   // 生成锁文件
   await generateLockFile(workDir);

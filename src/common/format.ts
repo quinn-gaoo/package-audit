@@ -1,4 +1,4 @@
-import { readJSON, writeJSON } from "./utils";
+import { readJSON, writeJSON } from "./utils.js";
 import path from "path";
 
 export default async function format(auditPath: string) {

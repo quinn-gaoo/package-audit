@@ -1,7 +1,7 @@
 {
-  "name": "dep-guard",
+  "name": "quinn-package-audit",
   "version": "1.0.0",
-  "description": "Dependency audit tool with MCP support",
+  "description": "package.json audit tool",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "type": "module",
@@ -19,14 +19,27 @@
     "docs:preview": "vitepress preview docs"
   },
   "bin": {
-    "github-audit": "./build/cli.js"
+    "pkad": "./build/cli.js"
   },
   "files": [
     "build"
   ],
-  "keywords": [],
+  "keywords": [
+    "audit",
+    "security",
+    "npm",
+    "github",
+    "depguard"
+  ],
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/dep-guard"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "packageManager": "pnpm@10.7.1",
   "dependencies": {
     "@modelcontextprotocol/server": "2.0.0-alpha.2",

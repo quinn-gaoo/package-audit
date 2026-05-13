@@ -2,13 +2,13 @@
 
 import { Command } from 'commander';
 import path from 'path';
-import audit from './index'; // 替换成你的 audit 方法
+import audit from './index.js'; // 替换成你的 audit 方法
 
 const program = new Command();
 
 program
-  .name('github-audit')
-  .description('GitHub 仓库 package.json 审计工具')
+  .name('pkad')
+  .description('package.json 审计工具')
   .version('1.0.0')
   .option('-r, --root <path>', '项目根路径', process.cwd())
   .option('-o, --output <path>', '输出文件路径', process.cwd())

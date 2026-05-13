@@ -1,5 +1,4 @@
 import { execa } from "execa";
-import { runCommand } from "./generateLock";
 import fs from "fs";
 import path from "path";
 

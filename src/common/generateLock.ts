@@ -23,7 +23,7 @@ export async function runCommand(cmd: string, workDir: string) {
 
 
 export default async function generateLockFile(workDir: string) {
-  const cmd = "npm install --package-lock-only --force";
+  const cmd = "npm install --package-lock-only --no-audit --ignore-scripts";
   console.log("package-lock 生成中...")
   await runCommand(cmd, workDir);
   console.log("generateLockFile:", workDir)
