@@ -35,7 +35,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/dep-guard"
+    "url": "https://github.com/quinn-gaoo/package-audit"
   },
   "publishConfig": {
     "access": "public"

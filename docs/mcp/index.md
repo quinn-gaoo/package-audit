@@ -1,6 +1,6 @@
 # MCP 支持
 
-Dep-Guard 支持 Model Context Protocol (MCP)，可以与各种 AI 工具集成。
+@quinn-gaoo/package-audit 支持 Model Context Protocol (MCP)，可以与各种 AI 工具集成。
 
 ## 启动 MCP 服务器
 
@@ -41,6 +41,20 @@ MCP 服务器提供以下工具：
 
 - `text`: 计算结果文本
 
+### audit
+
+package.json 审计工具
+
+**参数：**
+
+- `root`: 项目根路径，支持本地路径或 GitHub URL (string, 可选)
+- `output`: 输出文件路径 (string, 可选)
+- `filename`: 输出文件名 (string, 可选)
+
+**返回值：**
+
+- `text`: 审计结果摘要
+
 ## 集成到 AI 工具
 
 将 MCP 服务器集成到你的 AI 工具中，示例配置：
@@ -48,7 +62,7 @@ MCP 服务器提供以下工具：
 ```json
 {
   "mcpServers": {
-    "dep-guard": {
+    "package-audit": {
       "command": "node",
       "args": ["./build/mcp/index.js"]
     }

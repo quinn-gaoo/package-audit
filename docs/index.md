@@ -1,11 +1,11 @@
 ---
 layout: home
-title: Dep-Guard
+title: @quinn-gaoo/package-audit
 
 hero:
-  name: Dep-Guard
-  text: Dependency Audit Tool
-  tagline: GitHub 仓库 package.json 审计工具，支持 MCP 集成
+  name: @quinn-gaoo/package-audit
+  text: Package Audit Tool
+  tagline: package.json 审计工具，支持 CLI 和 MCP 集成
   actions:
     - theme: brand
       text: 快速开始 →

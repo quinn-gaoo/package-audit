@@ -16,7 +16,6 @@ async function testCli() {
     // 测试 1: 帮助信息
     console.log('📝 测试 1: 查看帮助信息');
     const helpResult = await runCli(['--help']);
-    console.log(helpResult.stdout);
     console.log('✅ 帮助信息测试通过\n');
 
     // 测试 2: 版本信息

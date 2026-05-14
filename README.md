@@ -1,119 +1,123 @@
-# Dep-Guard
+# @quinn-gaoo/package-audit
 
-Dependency audit tool with MCP support - GitHub 仓库 package.json 审计工具
+package.json 审计工具，支持 CLI 和 MCP 集成，帮助你分析项目依赖安全性。
 
 ## 功能特性
 
-- ✅ 分析项目依赖安全性
-- ✅ 生成审计报告
-- ✅ 支持 CLI 命令行工具
+- ✅ 分析项目依赖安全性，检测漏洞
+- ✅ 生成详细的审计报告（Markdown 格式）
+- ✅ 支持本地项目和 GitHub 仓库
+- ✅ CLI 命令行工具，简单易用
 - ✅ 支持 MCP (Model Context Protocol) 集成
 
 ## 安装
 
 ```bash
-# 安装依赖
-pnpm install
+# 全局安装
+npm install -g @quinn-gaoo/package-audit
 
-# 构建项目
-pnpm build
+# 或在项目中安装
+npm install @quinn-gaoo/package-audit
 ```
 
-## CLI 命令
+## CLI 使用
 
-### 基本使用
+### 基本命令
 
 ```bash
 # 查看帮助
-pnpm cli:dev --help
+pkad --help
 
 # 审计当前目录
-pnpm cli:dev
+pkad
 
-# 指定项目路径和输出目录
-pnpm cli:dev -r ./my-project -o ./output
+# 指定项目路径
+pkad -r ./my-project
+
+# 指定输出目录
+pkad -o ./audit-results
 
 # 指定输出文件名
-pnpm cli:dev -r ./my-project -o ./output -f audit.json
+pkad -f security-report
 ```
 
 ### 命令行参数
 
 | 参数 | 缩写 | 描述 | 默认值 |
 |------|------|------|--------|
-| `--root` | `-r` | 项目根路径 | 当前目录 |
+| `--root` | `-r` | 项目根路径（支持本地路径或 GitHub URL） | 当前目录 |
 | `--output` | `-o` | 输出文件路径 | 当前目录 |
-| `--filename` | `-f` | 输出文件名 | `audit-result.json` |
+| `--filename` | `-f` | 输出文件名 | `audit-result` |
 | `--version` | `-V` | 显示版本号 | - |
 | `--help` | `-h` | 显示帮助信息 | - |
 
-### 示例
+### 使用示例
 
 ```bash
 # 审计当前目录，输出到 audit 文件夹
-pnpm cli:dev -o ./audit
+pkad -o ./audit
 
 # 审计指定项目
-pnpm cli:dev -r /path/to/project -o /path/to/output
+pkad -r /path/to/project -o /path/to/output
 
 # 使用完整参数
-pnpm cli:dev --root ./my-project --output ./results --filename security-audit.json
+pkad --root ./my-project --output ./results --filename security-audit
+
+# 审计 GitHub 仓库
+pkad -r https://github.com/username/repo
 ```
 
-## 脚本命令
+### 输出结果
 
-| 命令 | 描述 |
-|------|------|
-| `pnpm build` | 构建项目 |
-| `pnpm dev` | 开发模式运行主入口 |
-| `pnpm cli:dev` | 开发模式运行 CLI |
-| `pnpm cli:test` | 测试 CLI 帮助信息 |
-| `pnpm test` | 运行测试 |
-| `pnpm mcp:dev` | 运行 MCP 服务器 |
-| `pnpm inspector` | 启动 MCP 调试工具 |
+审计完成后，会在输出目录生成 Markdown 格式的审计报告，包含：
+- 项目依赖信息
+- 漏洞统计（高危、中危、低危）
+- 依赖路径分析
+- 修复建议
 
 ## MCP 支持
 
-启动 MCP 服务器：
+该工具支持 Model Context Protocol，可以与 AI 工具集成使用。
+
+### 启动 MCP 服务器
 
 ```bash
-pnpm mcp:dev
+# 安装依赖后启动
+npx @quinn-gaoo/package-audit --mcp
 ```
 
-使用 inspector 调试：
+### 工具列表
 
-```bash
-pnpm inspector
+MCP 服务器提供以下工具：
+
+#### `audit` - package.json 审计
+
+**参数：**
+- `root` (string, 可选): 项目根路径，支持本地路径或 GitHub URL
+- `output` (string, 可选): 输出文件路径
+- `filename` (string, 可选): 输出文件名
+
+**返回值：**
+- 审计结果摘要（文本格式）
+
+## API 使用
+
+```javascript
+import audit from '@quinn-gaoo/package-audit';
+
+const result = await audit({
+  root: './my-project',
+  output: './results',
+  filename: 'security-report',
+});
+
+console.log('审计完成:', result.outputPath);
 ```
 
-## 项目结构
+## 前置要求
 
-```
-audit-mcp/
-├── src/
-│   ├── common/          # 工具函数和公共模块
-│   ├── mcp/             # MCP 服务器代码
-│   ├── cli.ts           # CLI 入口文件
-│   ├── index.ts         # 主入口
-│   └── test.ts          # 测试文件
-├── package.json
-├── tsconfig.json
-└── README.md
-```
-
-## 全局安装
-
-```bash
-# 先设置 pnpm 环境
-pnpm setup
-
-# 全局安装
-pnpm link --global
-
-# 现在可以全局使用
-github-audit --version
-github-audit -r ./my-project
-```
+- Node.js >= 18
+- npm >= 9
 
 ## License
 

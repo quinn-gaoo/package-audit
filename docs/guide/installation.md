@@ -1,53 +1,73 @@
-# 安装
+# 安装指南
 
-## 项目依赖
+## 前置要求
 
 - Node.js >= 18
-- pnpm >= 10
+- npm >= 9
 
-## 安装步骤
+## 安装方式
 
-### 1. 克隆项目
+### 方式一：全局安装（推荐）
 
 ```bash
-git clone https://github.com/your-repo/dep-guard.git
-cd dep-guard
+npm install -g @quinn-gaoo/package-audit
 ```
 
-### 2. 安装依赖
+安装完成后，即可全局使用 `pkad` 命令：
 
 ```bash
-pnpm install
+pkad --help
 ```
 
-### 3. 构建项目
+### 方式二：项目内安装
 
 ```bash
-pnpm build
+npm install @quinn-gaoo/package-audit
 ```
 
-## 全局安装 CLI
-
-如果你想全局使用 `github-audit` 命令：
+在项目中使用：
 
 ```bash
-# 设置 pnpm 环境
-pnpm setup
+npx pkad --help
+```
 
-# 全局链接
-pnpm link --global
+或在 `package.json` 中添加脚本：
 
-# 现在可以全局使用
-github-audit --version
-github-audit -r ./my-project
+```json
+{
+  "scripts": {
+    "audit": "pkad -r ./ -o ./audit-report"
+  }
+}
+```
+
+然后运行：
+
+```bash
+npm run audit
 ```
 
 ## 验证安装
 
 ```bash
-# 查看 CLI 帮助
-pnpm cli:dev --help
+# 查看版本
+pkad --version
 
-# 查看 MCP 服务器
-pnpm mcp:dev --help
+# 查看帮助
+pkad --help
+
+# 执行一次审计测试
+pkad -r ./ -o ./test-audit
+```
+
+## 更新包
+
+```bash
+npm update -g @quinn-gaoo/package-audit
+```
+
+## 卸载包
+
+```bash
+npm uninstall -g @quinn-gaoo/package-audit
 ```
